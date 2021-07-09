@@ -1,0 +1,86 @@
+[github]
+	accesstoken = 4c5ad49da7faecac6e52677241b3473680116d12
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
+[user]
+	name = jskills
+	email = jmortko@hearst.com
+[alias]
+	ar = ! git add . && git rebase --continue
+	blast = ! DEFAULT=`git default-branch` bash -c '[ `git current-branch` != "$DEFAULT" ] && git co -f && git co "$DEFAULT"' && git delete-last
+	br = branch
+	branches = for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:short) %09%(authorname) %09%(refname:short)'
+	cb = checkout -b
+	cf = checkout -f
+	ci = commit -a -m
+	cm = commit -m
+	co = checkout
+	cp = cherry-pick
+	current-branch = symbolic-ref --short HEAD
+	dc = diff --cached
+	default-branch = ! basename $(git symbolic-ref refs/remotes/origin/HEAD)
+	delete-last = branch -D '@{-1}'
+	delete-merged = "!f() { git checkout --quiet master && git branch --merged | grep --invert-match '\\*' | xargs -n 1 git branch --delete; git checkout --quiet @{-1}; }; f"
+	dl = branch -D '@{-1}'
+	dm = diff -w -U1 origin/master...
+	dw = diff -w
+	dww = diff -w --color-words
+	fm = fetch origin master:master
+	fo = ! sh -c 'git fetch origin $1:$1' -
+	fp = format-patch
+	lg = log --graph --all
+	lgs = log --graph --all --simplify-by-decoration
+	lh = log -n 10
+	lp = log -p -n 10
+	pad = add -p
+	pd = ! git push --delete origin `git rev-parse --abbrev-ref HEAD`
+	pf = push -f
+	pop = stash pop
+	pup = ! DEFAULT=`git default-branch` bash -c 'git up && git rebase "$DEFAULT" && git pf'
+	rd = ! git ls-files -z --deleted | xargs -0 git rm
+	recent = for-each-ref --count=25 --sort=-committerdate refs/heads/ --format="%(refname:short)"
+	remotes = for-each-ref --sort=-committerdate refs/remotes/ --format='%(committerdate:short) %09%(authorname) %09%(refname:short)'
+	rh = reset HEAD^
+	rhh = reset --hard HEAD^
+	st = status -sb
+	this = ! git init && git add . && git commit --allow-empty -m \"Initial commit\"
+[core]
+	whitespace = fix
+	preloadindex = true
+	excludesfile = ~/.gitignore
+[format]
+	pretty = format:%C(green)%h%Creset %C(bold yellow)%an%Creset  %s  %C(auto)%d%Creset %C(magenta)%ad (%ar)%Creset
+[log]
+	date = short
+[diff]
+	mnemonicprefix = true
+	color-words = true
+	context = 1
+	compactionHeuristic = on
+	indentHeuristic = on
+[color "branch"]
+	current = cyan bold
+	local = white
+	remote = green
+[color "diff"]
+	meta = yellow
+	frag = cyan
+	old = magenta
+	new = green
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+[push]
+	default = current
+[tig]
+	tab-size = 4
+[advice]
+	statusHints = false
+[branch]
+	autosetupmerge = true
+[merge]
+	conflictstyle = diff3
+[rebase]
+	autostash = true
+	autosquash = true
