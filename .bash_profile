@@ -40,6 +40,13 @@ export PATH=/usr/local/bin/:$PATH
 # alias for rm safety
 alias rm="/bin/rm -i"
 
+# system info for Linux
+alias inf="uname -sr && uptime| sed 's/ //' && sensors|grep Core && \
+           lscpu|grep 'CPU MHz:' && acpi && \
+           echo -n 'Memory in use: ' && free -m|grep Mem|\
+           awk '{print \$3+\$5\" megs\"}'"
+
+
 # sourcing any keys/creds that need to be exported as ENV vars
 source ~/.creds
 
