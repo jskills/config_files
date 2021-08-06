@@ -47,6 +47,9 @@ alias inf="uname -sr && uptime| sed 's/ //' && sensors|grep Core && \
            awk '{print \$3+\$5\" megs\"}'"
 
 
+# curl just for http status code
+alias curlo='curl -o /dev/null -s -w "%{http_code}\n" $1'
+
 # sourcing any keys/creds that need to be exported as ENV vars
 source ~/.creds
 
